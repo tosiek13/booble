@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>booble</title>
+	<link rel="stylesheet" type="text/css" href="js/css/main.css">
+	<link rel="stylesheet" type="text/css" href="js/css/main.css">
+	<!--angular lib-->
+	<script src="js/lib/angular.min.js"></script>
+	<!--gameModule-->
+	<script src="js/src/mainApp.js"></script>
+	
+	<!--services-->
+	<script src="js/src/services/MessageService.js"></script>
+	<script src="js/src/services/MouseActionService.js"></script>
+	
+	<!--root controllers-->
+	<script src="js/src/controllers/GameMenuController.js"></script>
+	<!--controllers-->
+	<script src="js/src/controllers/DrawingController.js"></script>
+	<script src="js/src/controllers/MessageController.js"></script>
+	<script src="js/src/controllers/RoomsController.js"></script>
+	<script src="js/src/controllers/DataRequestController.js"></script>
+	<script src="js/src/controllers/LoginController.js"></script>
+	
+	
+	<link rel="stylesheet" href="js/css/bootstrap.min.css">
+	<script src="js/lib/svg.js"></script>
+	<script src="js/lib/svg.draw.js"></script>
+	
+	
+	<!-- jQuery library -->
+	<script src="js/lib/jquery.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+	<script src="js/lib/bootstrap.min.js"></script>
+</head>
+
+<body ng-controller="DataRequestController">
+	<div ng-app="mainApp" ng-controller="MessageController">
+		<nav class="navbar navbar-inverse">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">Booble</a>
+				</div>
+				<ul class="nav navbar-nav">
+				</ul>
+				<form class="navbar-form navbar-right" ng-controller="LoginController" ng-init="init()">
+                    <button ng-click="login()" type="submit" class="btn btn-default pull-right">Log in</button>
+                    <input type="text" class="form-control pull-right" ng-model="nick.value" placeholder="nick" style="width:150px" /> 
+
+                </form>
+			</div>
+		</nav>
+		<div class="container">
+			<div class="row">
+				<div class="col-10">
+					<div class="col-fixed-800">
+						<div class="conatiner" ng-controller="DrawingController"
+							ng-init="init()">
+							<div id="drawing" />
+						</div>
+					</div>
+				</div>
+				<div class="col-2">
+					<div class="col-fixed-h450">
+						<div class="container">
+							<div ng-controller="RoomsController">
+								<div ng-hide="room" class="container">
+									<div class="panel panel-default" style="height: 450px">
+										<div class="panel-heading">Rooms Avaiable:</div>
+										<div class="panel-body">
+											<div ng-click="joinRoom(room.roomId)"
+												ng-repeat="room in rooms">
+												<button type="button" style="width: 400px;"
+													class="btn btn-primary">
+													{{ room.roomId}} <span class="badge">{{room.participantsAmount}}</span>
+												</button>
+											</div>
+											<div>
+												<button type="button" class="btn btn-success"
+													ng-click="createNewRoom()">Start New</button>
+												Initial users amount <input type="number"
+													ng-model="startRoom.bootsAmount" name="string" min="1"
+													max="10" ng-min="string" ng-max="string" step="1"
+													ng-step="string" required="true" ng-required="true"
+													style="width: 50px" />
+											</div>
+											<button type="button" class="btn btn-primary active"
+												ng-click="getRooms()" ng-init="init()">Refresh</button>
+										</div>
+									</div>
+								</div>
+
+
+								<div ng-show="room" class="container">
+									<div class="panel panel-default" style="height: 450px">
+										<div class="panel-heading">Current Room</div>
+										<div class="panel-body">
+											<div ng-repeat="gamester in room.gamesters">
+												<button type="button" style="width: 400px;"
+													class="btn btn-primary">
+													{{ gamester.nick}} <span class="badge">{{gamester.points}}</span>
+												</button>
+											</div>
+											<button type="button" class="btn btn-danger"
+												ng-click="leaveRoom()">Leave</button>
+											<button type="button" class="btn btn-primary active"
+												ng-click="getRooms()" ng-init="init()">Refresh</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</body>
+
+</html>
